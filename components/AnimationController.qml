@@ -1,12 +1,11 @@
 import QtQuick
+import ".." as Tamagotchi
 
 Item {
     id: root
 
-    property string petState: "idle"
-
-    readonly property int frameW: 320
-    readonly property int frameH: 320
+		property int frameH: 64
+    property int frameW: 64
 
     implicitWidth:  frameW
     implicitHeight: frameH
@@ -20,14 +19,14 @@ Item {
         "happy":    "../assets/sapo_idle.png",
         "sad":      "../assets/sapo_sad.png",
         "dirty":    "../assets/sapo_tired.png",
-        "hunger":    "../assets/sapo_tired.png",
+        "hunger":   "../assets/sapo_tired.png",
     })
 
-    Image {
+		Image {
         anchors.centerIn: parent
         width:    root.frameW
         height:   root.frameH
-        source:   root._imageMap[root.petState] ?? "../assets/sapo_idle.png"
+        source:   root._imageMap[Tamagotchi.TamagotchiState.petState] ?? "../assets/sapo_idle.png"
         fillMode: Image.PreserveAspectFit
         smooth:   false
     }

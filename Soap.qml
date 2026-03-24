@@ -1,7 +1,3 @@
-
-// Soap.qml
-// Ítem de limpieza draggeable. Emite la key "soap" para el DropArea del pet.
-
 import QtQuick
 import qs.Commons
 
@@ -11,11 +7,10 @@ Rectangle {
     width:  44
     height: 44
     radius: 10
-    color:  _dragging ? Qt.rgba(0.2,0.7,1.0,0.9) : Qt.rgba(0.2,0.7,1.0,0.75)
-    border.color: Qt.rgba(0.5,0.85,1.0,0.5)
-    border.width: 1
+    color:  "transparent"
 
-    property bool _dragging: false
+		property bool _dragging: false
+		property bool wasDropped: false
 
     Drag.active:  _dragging
     Drag.keys:    ["soap"]
@@ -34,7 +29,6 @@ Rectangle {
         font.pixelSize: 22
     }
 
-    // Burbujas decorativas
     Repeater {
         model: 3
         delegate: Rectangle {
@@ -62,15 +56,19 @@ Rectangle {
             root._restY = root.y
         }
 
-        onReleased: {
-            root._dragging = false
-            if (root.Drag.drop() !== Qt.IgnoreAction) {
-                disappearAnim.start()
-            } else {
-                root.x = root._restX
-                root.y = root._restY
-            }
-        }
+				onReleased: {
+						root._dragging = false
+						root.Drag.drop()
+
+						if (root.wasDropped) {
+								disappearAnim.start()
+						} else {
+								root.x = root._restX
+								root.y = root._restY
+						}
+
+						root.wasDropped = false
+				}
     }
 
     SequentialAnimation {

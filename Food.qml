@@ -10,9 +10,7 @@ Rectangle {
     width:  44
     height: 44
     radius: 10
-    color:  _dragging ? Qt.rgba(1,0.6,0.2,0.9) : Qt.rgba(1,0.6,0.2,0.75)
-    border.color: Qt.rgba(1,0.8,0.4,0.5)
-    border.width: 1
+    color:  "transparent"
 
 		property bool _dragging: false
 		property bool wasDropped: false
@@ -43,10 +41,7 @@ Rectangle {
         height:  parent.height + 6
         radius:  parent.radius + 3
         color:   "transparent"
-        border.color: Qt.rgba(1,0.6,0.2,0.3)
-        border.width: root._dragging ? 2 : 0
         z: -1
-				Behavior on border.width { NumberAnimation { duration: 120 } }
 			}
 
 

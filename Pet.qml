@@ -8,15 +8,14 @@ Item {
 
     property string petState:     Tamagotchi.TamagotchiState.petState
 
-    implicitWidth:  120
-    implicitHeight: 120
+		width:  animCtrl.frameW
+		height: animCtrl.frameH
 
     AnimationController {
         id: animCtrl
         anchors.centerIn: parent
-        width:        64
-        height:       64
-        petState:     Tamagotchi.TamagotchiState.petState
+        frameH:           220
+				frameW:           220
     }
 
 		Repeater {
@@ -128,7 +127,7 @@ Item {
 										NumberAnimation {
 												target: cleanParticle
 												property: "y"
-												to: cleanParticles.startY - 40 - Math.random()*20
+												to: cleanParticle.startY - 40 - Math.random()*20
 												duration: 600
 												easing.type: Easing.OutCubic
 										}
@@ -144,9 +143,9 @@ Item {
 
 								ScriptAction {
 										script: {
-												cleanParticles.visible = false
-												cleanParticles.x = cleanParticles.startX
-												cleanParticles.y = foodcleanParticlesParticle.startY
+												cleanParticle.visible = false
+												cleanParticle.x = cleanParticle.startX
+												cleanParticle.y = cleanParticle.startY
 										}
 								}
 						}
@@ -169,43 +168,59 @@ Item {
 						root.burstFood()
 				}
 
-        Rectangle {
+				Rectangle {
+						anchors.topMargin: 100
             anchors.fill: parent
-            radius: parent.width / 2
             color: "transparent"
+						radius: parent.width / 2
             border.color: Qt.rgba(1, 0.8, 0, 0.6)
-            border.width: 2
-            opacity: parent.containsDrag ? 1 : 0
+						border.width: 2
+            opacity: 1
             Behavior on opacity { NumberAnimation { duration: 150 } }
         }
     }
 
-    DropArea {
-        anchors.fill: parent
+		DropArea {
+				id: soapDrop
+				anchors.fill: parent
 				keys: ["soap"]
 				z: 999
 
-				onDropped: (drop) => {
-						drop.acceptProposedAction()
+				property bool active: containsDrag
 
-						if (drop.source) {
-								drop.source.wasDropped = true
-						}
-
-						Tamagotchi.TamagotchiState.clean(10)
-						root.burstFood()
+				onEntered: {
+						Tamagotchi.TamagotchiState.petState = "cleaning"
+						cleanTimer.start()
 				}
 
+				onExited: {
+						Tamagotchi.TamagotchiState.petState = "idle"
+						cleanTimer.stop()
+				}
+
+
 				Rectangle {
-            anchors.fill: parent
-            radius: parent.width / 2
-            color: "transparent"
-            border.color: Qt.rgba(0.2, 0.7, 1.0, 0.6)
-            border.width: 2
-            opacity: parent.containsDrag ? 1 : 0
-            Behavior on opacity { NumberAnimation { duration: 150 } }
-        }
-    }
+						anchors.topMargin: 100
+						anchors.fill: parent
+						radius: parent.width / 2
+						color: "transparent"
+						border.color: Qt.rgba(0.2, 0.7, 1.0, 0.6)
+						border.width: 2
+						opacity: 1
+						Behavior on opacity { NumberAnimation { duration: 150 } }
+				}
+			}
+
+		Timer {
+				id: cleanTimer
+				interval: 120   
+				repeat: true
+
+				onTriggered: {
+						Tamagotchi.TamagotchiState.clean(2)
+						root.burstClean()
+				}
+		}
 
 		function burstFood() {
 				for (var i = 0; i < foodParticles.count; i++) {
