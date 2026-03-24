@@ -7,8 +7,8 @@ Rectangle {
 
     property bool consumed: false
 
-    width:  44
-    height: 44
+    width:  64
+    height: 64
     radius: 10
     color:  "transparent"
 
@@ -23,12 +23,13 @@ Rectangle {
     property real _restX: x
     property real _restY: y
 
-    scale: _dragging ? 1.15 : 1.0
-    Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutBack } }
 
 		Image {
 				anchors.fill: parent
 				anchors.margins: 6
+
+				scale: _dragging ? 0.7 : 1.0
+				Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutBack } }
 
 				source: "assets/monster.png"
 				fillMode: Image.PreserveAspectFit
@@ -40,7 +41,8 @@ Rectangle {
         width:   parent.width  + 6
         height:  parent.height + 6
         radius:  parent.radius + 3
-        color:   "transparent"
+				color:   Color.mPrimary
+				opacity: _dragging ? 0.0 : 1.0
         z: -1
 			}
 

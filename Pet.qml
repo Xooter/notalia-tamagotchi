@@ -25,7 +25,7 @@ Item {
 						id: foodParticle
 
 						text: ["🍗","✨","💛","🌟","💫"][index]
-						font.pixelSize: 14
+						font.pixelSize: 24
 
 						property real startX: 0
 						property real startY: 0
@@ -92,7 +92,7 @@ Item {
 				delegate: Text {
             id: cleanParticle
             text: ["🧼","✨","💧","⭐","🫧"][index]
-						font.pixelSize: 14
+						font.pixelSize: 24
 
 						property real startX: 0
 						property real startY: 0

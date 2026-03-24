@@ -68,6 +68,7 @@ Item {
 						}
 
 						Row {
+							spacing:15
 							Food {}
 							Soap{}
 						}

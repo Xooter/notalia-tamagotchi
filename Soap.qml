@@ -4,8 +4,8 @@ import qs.Commons
 Rectangle {
     id: root
 
-    width:  44
-    height: 44
+    width:  64
+    height: 64
     radius: 10
     color:  "transparent"
 
@@ -20,30 +20,28 @@ Rectangle {
     property real _restX: x
     property real _restY: y
 
-    scale: _dragging ? 1.15 : 1.0
-    Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutBack } }
+		Image {
+				anchors.fill: parent
+				anchors.margins: 6
 
-    Text {
+				scale: _dragging ? 0.7 : 1.0
+				Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutBack } }
+
+				source: "assets/monster.png"
+				fillMode: Image.PreserveAspectFit
+				smooth: false
+			}
+
+    Rectangle {
         anchors.centerIn: parent
-        text:          "🧼"
-        font.pixelSize: 22
-    }
+        width:   parent.width  + 6
+        height:  parent.height + 6
+        radius:  parent.radius + 3
+				color:   Color.mPrimary
+				opacity: _dragging ? 0.0 : 1.0
+        z: -1
+			}
 
-    Repeater {
-        model: 3
-        delegate: Rectangle {
-            property real angle: index * 120 * Math.PI / 180
-            x: root.width/2 + Math.cos(angle)*14 - 3
-            y: root.height/2 + Math.sin(angle)*14 - 3
-            width:  6
-            height: 6
-            radius: 3
-            color:  Qt.rgba(1,1,1,0.35)
-            visible: root._dragging
-            opacity: root._dragging ? 1 : 0
-            Behavior on opacity { NumberAnimation { duration: 150 } }
-        }
-    }
 
     MouseArea {
         anchors.fill: parent
