@@ -65,13 +65,9 @@ Item {
 
 							Soap{}
 						}
-					}
-
-
-				Ball {
-						x: 0
-						y: 0
 				}
+
+				Ball {}
 
         StatBars {
             Layout.fillWidth: true

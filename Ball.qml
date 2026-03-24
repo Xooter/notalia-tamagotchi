@@ -1,53 +1,86 @@
 import QtQuick
+import "." as Tamagotchi
 
 
 Rectangle {
     id: root
-    width: 30
-    height: 30
+    width: 40
+    height: 40
     radius: 15
-    color: "red"
+    color: "transparent"
     property real vx: 3
     property real vy: 0
-    property real gravity: 0.4
-    property real bounce: 0.7
-    property real friction: 0.999
+    property real gravity: 0.9
+    property real bounce: 0.9
+		property real friction: 0.98
+
+		property real rotationAngle: 0
+
+		property bool canTriggerPlay: true
+		property real speedThreshold: 25
+
+		Text{
+			text: "⚽"
+			font.pixelSize: root.width
+			anchors.centerIn: parent
+			rotation: root.rotationAngle
+		}
+
+		Timer {
+				id: playCooldown
+				interval: 500   
+				repeat: false
+
+				onTriggered: {
+						root.canTriggerPlay = true
+				}
+		}
 
     Timer {
         id: physicsTimer
         interval: 16
         running: true
         repeat: true
-        onTriggered: {
-            if (!root.parent) return
-            root.vy += root.gravity
-            root.x += root.vx
-            root.y += root.vy
+				onTriggered: {
+						if (!root.parent) return
 
-            if (root.y + root.height >= root.parent.height) {
-                root.y = root.parent.height - root.height
-                root.vy *= -root.bounce
-            }
-            if (root.y <= 0) {
-                root.y = 0
-                root.vy *= -root.bounce
-            }
-            if (root.x <= 0) {
-                root.x = 0
-                root.vx *= -1
-            }
-            if (root.x + root.width >= root.parent.width) {
-                root.x = root.parent.width - root.width
-                root.vx *= -1
-            }
-            root.vx *= root.friction
-        }
+						root.vy += root.gravity
+						root.x += root.vx
+						root.y += root.vy
+
+						var speed = Math.sqrt(root.vx * root.vx + root.vy * root.vy)
+
+						if (speed > root.speedThreshold && root.canTriggerPlay) {
+								root.canTriggerPlay = false
+								Tamagotchi.TamagotchiState.play(10)
+								playCooldown.start()
+						}
+
+						if (root.y + root.height >= root.parent.height) {
+								root.y = root.parent.height - root.height
+								root.vy *= -root.bounce
+						}
+
+						if (root.x <= 0) {
+								root.x = 0
+								root.vx *= -1
+						}
+
+						if (root.x + root.width >= root.parent.width) {
+								root.x = root.parent.width - root.width
+								root.vx *= -1
+						}
+
+						root.vx *= root.friction
+				}
     }
 
     MouseArea {
         anchors.fill: parent
         drag.target: root
-        drag.axis: Drag.XAndYAxis
+				drag.axis: Drag.XAndYAxis
+				preventStealing: true
+				drag.filterChildren: true
 
         property real lastAbsX
         property real lastAbsY
@@ -55,7 +88,7 @@ Rectangle {
         property real vyTemp
 
         onPressed: (mouse) => {
-            physicsTimer.running = false   // pausar física
+					physicsTimer.running = false   
             root.vx = 0
             root.vy = 0
             var abs = mapToItem(root.parent, mouse.x, mouse.y)
@@ -65,18 +98,23 @@ Rectangle {
             vyTemp = 0
         }
 
-        onPositionChanged: (mouse) => {
-            var abs = mapToItem(root.parent, mouse.x, mouse.y)
-            vxTemp = abs.x - lastAbsX
-            vyTemp = abs.y - lastAbsY
-            lastAbsX = abs.x
-            lastAbsY = abs.y
-        }
+				onPositionChanged: (mouse) => {
+						var abs = mapToItem(root.parent, mouse.x, mouse.y)
+
+						abs.x = Math.max(0, Math.min(root.parent.width, abs.x))
+						abs.y = Math.max(0, Math.min(root.parent.height, abs.y))
+
+						vxTemp = abs.x - lastAbsX
+						vyTemp = abs.y - lastAbsY
+
+						lastAbsX = abs.x
+						lastAbsY = abs.y
+				}
 
         onReleased: {
             root.vx = vxTemp * 1.5
             root.vy = vyTemp * 1.5
-            physicsTimer.running = true    // reanudar física
+            physicsTimer.running = true
         }
     }
 }
