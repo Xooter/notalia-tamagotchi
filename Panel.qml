@@ -1,74 +1,95 @@
 import QtQuick
 import QtQuick.Layouts
-import qs.Commons
-import qs.Widgets
 import QtMultimedia
-
+import qs.Commons
+import "." as Tamagotchi
+import "./components"
 
 Item {
     id: root
 
     property var pluginApi: null
 
-    readonly property var geometryPlaceholder: panelContainer
-    readonly property bool allowAttach: true
+    anchors.fill: parent
 
-    property real contentPreferredWidth: 300
-    property real contentPreferredHeight: 100
+    Component.onCompleted: {
+        if (pluginApi) {
+            Tamagotchi.TamagotchiState.pluginApi = pluginApi
+            Tamagotchi.TamagotchiState.load()
+        }
+    }
 
-		anchors.fill: parent
+    SoundEffect { id: soundEat;     source: "sounds/eat.wav"    }
+    SoundEffect { id: soundPlay;    source: "sounds/eat.wav"    }
+    SoundEffect { id: soundClean;   source: "sounds/eat.wav"    }
+    SoundEffect { id: soundSleep;   source: "sounds/eat.wav"    }
 
+    // ── Conexión de señales del State ──────────────────────────────
+    Connections {
+        target: Tamagotchi.TamagotchiState
 
-SoundEffect {
-    id: eatSound
-    source: "sounds/eat.wav"
-}
+        function onPetStateChanged() {
+            var s = Tamagotchi.TamagotchiState.petState
+            if      (s === "eating")   soundEat.play()
+            else if (s === "playing")  soundPlay.play()
+            else if (s === "cleaning") soundClean.play()
+            else if (s === "sleeping") soundSleep.play()
+        }
+    }
 
-    Rectangle {
-        id: panelContainer
-        anchors.fill: parent
-        color: "transparent"
+    // ── Timer del game loop ───────────────────────────────────────
+    Timer {
+        interval: 8000   // cada 8s
+        running:  true
+        repeat:   true
+        onTriggered: Tamagotchi.TamagotchiState.decay()
+    }
 
-        Column {
-            anchors.centerIn: parent
-            spacing: 10
+    // ── Layout principal ──────────────────────────────────────────
+    ColumnLayout {
+        anchors.fill:    parent
+        anchors.margins: 20
+        spacing:         16
 
-            Text {
-                text: "Tamagochi 🐣"
-                color: "white"
+        Item {
+            Layout.fillWidth: true
+            height: 240
+
+            Pet {
+                id: pet
+                anchors.centerIn: parent
+                petState:     Tamagotchi.TamagotchiState.petState
+
+                onFed: {
+                    Tamagotchi.TamagotchiState.feed()
+                }
+                onCleaned: {
+                    Tamagotchi.TamagotchiState.clean()
+                }
             }
 
-					NIconButton {
-							icon: "close"
-							onClicked: {
-									eatSound.play()
-							}
-					}
-				}
+        }
 
-			Rectangle {
-					id: food
-					width: 40
-					height: 40
-					radius: 8
-					color: "orange"
+        StatBars {
+            Layout.fillWidth: true
+            hunger:      Tamagotchi.TamagotchiState.hunger
+            happiness:   Tamagotchi.TamagotchiState.happiness
+            cleanliness: Tamagotchi.TamagotchiState.cleanliness
+            energy:      Tamagotchi.TamagotchiState.energy
+        }
 
-					property bool dragging: false
-
-					Text {
-							anchors.centerIn: parent
-							text: "🍗"
-					}
-
-					MouseArea {
-							anchors.fill: parent
-
-							drag.target: food
-							drag.axis: Drag.XAndYAxis
-
-							onPressed: food.dragging = true
-							onReleased: food.dragging = false
-					}
-			}
+        // Botones de acción
+        ActionButtons {
+            Layout.alignment: Qt.AlignHCenter
+            petState: Tamagotchi.TamagotchiState.petState
+            energy:   Tamagotchi.TamagotchiState.energy
+            onAction: function(action) {
+                var s = Tamagotchi.TamagotchiState
+                if      (action === "feed")  s.feed()
+                else if (action === "play")  s.play()
+                else if (action === "clean") s.clean()
+                else if (action === "sleep") s.sleep()
+            }
+        }
     }
 }
