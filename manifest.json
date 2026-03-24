@@ -1,0 +1,20 @@
+{
+  "id": "tamagochi",
+  "name": "Tamagochi",
+  "version": "1.0.0",
+  "minNoctaliaVersion": "4.6.6",
+  "author": "Joaquin Righetti",
+  "official": false,
+  "license": "MIT",
+  "repository": "",
+  "description": "Attack Shark status",
+  "tags": ["Bar"],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml",
+    "panel": "Panel.qml"
+  },
+  "dependencies": {
+    "plugins": []
+  },
+  "metadata": {}
+}
