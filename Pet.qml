@@ -196,7 +196,6 @@ Item {
 						cleanTimer.stop()
 				}
 
-
 				Rectangle {
 						anchors.topMargin: 100
 						anchors.fill: parent

@@ -11,7 +11,7 @@ Item {
     property var pluginApi: null
 
 		property real contentPreferredWidth: 600 * Style.uiScaleRatio
-		property real contentPreferredHeight: 400 * Style.uiScaleRatio
+		property real contentPreferredHeight: 430 * Style.uiScaleRatio
   
 
     Component.onCompleted: {
@@ -39,59 +39,50 @@ Item {
     }
 
     Timer {
-        interval: 1000   // cada 8s
+        interval: 1000
         running:  true
         repeat:   true
         onTriggered: Tamagotchi.TamagotchiState.decay()
     }
 
-    ColumnLayout {
+		ColumnLayout {
         anchors.fill:    parent
 				anchors.margins: 8
-				spacing: 8
+				spacing:         30
 
-        StatBars {
+				StatBars {
 						Layout.fillWidth: true
-            hunger:      Tamagotchi.TamagotchiState.hunger
-            happiness:   Tamagotchi.TamagotchiState.happiness
-            cleanliness: Tamagotchi.TamagotchiState.cleanliness
-            energy:      Tamagotchi.TamagotchiState.energy
+						hunger:      Tamagotchi.TamagotchiState.hunger
+						happiness:   Tamagotchi.TamagotchiState.happiness
+						cleanliness: Tamagotchi.TamagotchiState.cleanliness
+						energy:      Tamagotchi.TamagotchiState.energy
 				}
 
-        Item {
-            Layout.fillWidth: true
-            height: 140
+
+				Item {
+						Layout.fillWidth: true
+						Layout.preferredHeight: 350   
 
 						Pet {
-							id: pet
-							anchors.centerIn: parent
+								anchors.centerIn: parent
 						}
 
-						Row {
-							spacing:15
-							Food {}
-							Soap{}
+						RowLayout {
+								Layout.fillWidth: true
+								spacing: 15
+
+								Bed  {}
+								Food {}
+								Soap {}
 						}
 				}
 
-				Ball {}
-
+				Ball {
+						Layout.alignment: Qt.AlignHCenter
+				}
 
         // DebugButtons {
         //     Layout.alignment: Qt.AlignHCenter
-        // }
-
-        // ActionButtons {
-        //     Layout.alignment: Qt.AlignHCenter
-        //     petState: Tamagotchi.TamagotchiState.petState
-        //     energy:   Tamagotchi.TamagotchiState.energy
-        //     onAction: function(action) {
-        //         var s = Tamagotchi.TamagotchiState
-        //         if      (action === "feed")  s.feed()
-        //         else if (action === "play")  s.play()
-        //         else if (action === "clean") s.clean()
-        //         else if (action === "sleep") s.sleep()
-        //     }
         // }
     }
 }

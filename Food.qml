@@ -5,8 +5,6 @@ import "." as Tamagotchi
 Rectangle {
     id: root
 
-    property bool consumed: false
-
     width:  64
     height: 64
     radius: 10
@@ -27,6 +25,7 @@ Rectangle {
 		Image {
 				anchors.fill: parent
 				anchors.margins: 6
+				z: 10
 
 				scale: _dragging ? 0.7 : 1.0
 				Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutBack } }

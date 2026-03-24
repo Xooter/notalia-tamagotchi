@@ -20,7 +20,7 @@ Item {
         "sad":      "../assets/sapo_sad.png",
         "dirty":    "../assets/sapo_tired.png",
         "hunger":   "../assets/sapo_tired.png",
-    })
+			})
 
 		Image {
         anchors.centerIn: parent
