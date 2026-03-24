@@ -39,7 +39,7 @@ Item {
     }
 
     Timer {
-        interval: 8000   // cada 8s
+        interval: 1000   // cada 8s
         running:  true
         repeat:   true
         onTriggered: Tamagotchi.TamagotchiState.decay()
@@ -74,25 +74,29 @@ Item {
 						y: 0
 				}
 
-        // StatBars {
-        //     Layout.fillWidth: true
-        //     hunger:      Tamagotchi.TamagotchiState.hunger
-        //     happiness:   Tamagotchi.TamagotchiState.happiness
-        //     cleanliness: Tamagotchi.TamagotchiState.cleanliness
-        //     energy:      Tamagotchi.TamagotchiState.energy
-        // }
+        StatBars {
+            Layout.fillWidth: true
+            hunger:      Tamagotchi.TamagotchiState.hunger
+            happiness:   Tamagotchi.TamagotchiState.happiness
+            cleanliness: Tamagotchi.TamagotchiState.cleanliness
+            energy:      Tamagotchi.TamagotchiState.energy
+				}
 
-        ActionButtons {
+        DebugButtons {
             Layout.alignment: Qt.AlignHCenter
-            petState: Tamagotchi.TamagotchiState.petState
-            energy:   Tamagotchi.TamagotchiState.energy
-            onAction: function(action) {
-                var s = Tamagotchi.TamagotchiState
-                if      (action === "feed")  s.feed()
-                else if (action === "play")  s.play()
-                else if (action === "clean") s.clean()
-                else if (action === "sleep") s.sleep()
-            }
         }
+
+        // ActionButtons {
+        //     Layout.alignment: Qt.AlignHCenter
+        //     petState: Tamagotchi.TamagotchiState.petState
+        //     energy:   Tamagotchi.TamagotchiState.energy
+        //     onAction: function(action) {
+        //         var s = Tamagotchi.TamagotchiState
+        //         if      (action === "feed")  s.feed()
+        //         else if (action === "play")  s.play()
+        //         else if (action === "clean") s.clean()
+        //         else if (action === "sleep") s.sleep()
+        //     }
+        // }
     }
 }
