@@ -51,7 +51,7 @@ Item {
 				spacing: 8
 
         StatBars {
-            Layout.fillWidth: true
+						Layout.fillWidth: true
             hunger:      Tamagotchi.TamagotchiState.hunger
             happiness:   Tamagotchi.TamagotchiState.happiness
             cleanliness: Tamagotchi.TamagotchiState.cleanliness

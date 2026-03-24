@@ -2,104 +2,105 @@ import QtQuick
 import QtQuick.Layouts
 import qs.Commons
 
-Column {
+RowLayout {
     id: root
     spacing: 8
 		width: parent.width
+
 
     property int hunger:      100
     property int happiness:   100
     property int cleanliness: 100
     property int energy:      100
 
-    component StatBar: Item {
-        id: barRoot
+    component Gauge: Item {
+    id: root
 
-        property string label:    "Stat"
-        property int    value:    100     
-        property string icon:     "●"
-        readonly property color barColor: {
-            if (value < 25)      return "#E24B4A"   
-            else if (value < 50) return "#EF9F27"   
-            else                 return "#1D9E75"   
-        }
+    property int value: 75          
+    property string icon: "🍗"
 
-        width:  parent.width
-				height: 28
-				anchors.horizontalCenter: parent.horizontalCenter
+    width: 80
+    height: 80
 
-        Row {
-            anchors.fill: parent
-						spacing: 8
+    readonly property real angle: (value / 100) * 360
 
+    // Fondo
+    Canvas {
+        id: bg
+        anchors.fill: parent
 
-            Text {
-                text:           barRoot.icon
-                font.pixelSize: 14
-                color:          Style.colorOnSurface ?? "#ffffff"
-                anchors.verticalCenter: parent.verticalCenter
-                width: 18
-            }
+        onPaint: {
+            var ctx = getContext("2d")
+            ctx.reset()
 
-            Rectangle {
-                width:               parent.width - 18 - 56 - 8*2 - 32
-                height:              8
-                radius:              4
-                color:               Qt.rgba(1,1,1,0.12)
-                anchors.verticalCenter: parent.verticalCenter
-
-                Rectangle {
-                    id: fill
-                    height:  parent.height
-                    radius:  parent.radius
-                    color:   barRoot.barColor
-                    width:   parent.width * (barRoot.value / 100)
-
-                    Behavior on width {
-                        NumberAnimation { duration: 400; easing.type: Easing.OutCubic }
-                    }
-                    Behavior on color {
-                        ColorAnimation { duration: 300 }
-                    }
-                }
-            }
-
-            Text {
-                text:           barRoot.value + "%"
-                font.pixelSize: 11
-                color:          barRoot.barColor
-                width:          32
-                horizontalAlignment: Text.AlignRight
-                anchors.verticalCenter: parent.verticalCenter
-
-                Behavior on color {
-                    ColorAnimation { duration: 300 }
-                }
-            }
+            var r = width / 2
+            ctx.beginPath()
+            ctx.arc(r, r, r - 6, 0, 2 * Math.PI)
+            ctx.strokeStyle = "rgba(255,255,255,0.1)"
+            ctx.lineWidth = 8
+            ctx.stroke()
         }
     }
 
-    StatBar {
-        icon:  "🍗"
-        value: root.hunger
-        width: parent.width
+    // Progreso
+Canvas {
+    id: fg
+    anchors.fill: parent
+
+    onPaint: {
+        var ctx = getContext("2d")
+        ctx.reset()
+
+        var r = width / 2
+        var start = -Math.PI / 2
+        var end = start + (root.angle * Math.PI / 180)
+
+        ctx.beginPath()
+        ctx.arc(r, r, r - 6, start, end)
+
+        if (root.value < 25)
+            ctx.strokeStyle = "#E24B4A"
+        else if (root.value < 50)
+            ctx.strokeStyle = "#EF9F27"
+        else
+            ctx.strokeStyle = "#1D9E75"
+
+        ctx.lineWidth = 8
+        ctx.lineCap = "round"
+        ctx.stroke()
     }
 
-    StatBar {
-        icon:  "😃"
-        value: root.happiness
-        width: parent.width
+    Connections {
+        target: root
+        function onAngleChanged() { fg.requestPaint() }
+        function onValueChanged() { fg.requestPaint() }
+    }
+}
+
+    // Icono central
+    Text {
+        anchors.centerIn: parent
+        text: root.icon
+        font.pixelSize: 24
     }
 
-    StatBar {
-        icon:  "🧼"
-        value: root.cleanliness
-        width: parent.width
+    // Texto %
+    Text {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.bottom
+        anchors.topMargin: 4
+        text: root.value + "%"
+        font.pixelSize: 10
+        color: "white"
     }
-
-    StatBar {
-        icon:  "🛏️"
-        value: root.energy
-        width: parent.width
-    }
+}
+Item { Layout.fillWidth: true }
+		Gauge { value: hunger;      icon: "🍗" }
+		Item { Layout.fillWidth: true }
+    Gauge { value: happiness;   icon: "😃" }
+		Item { Layout.fillWidth: true }
+    Gauge { value: cleanliness; icon: "🧼" }
+		Item { Layout.fillWidth: true }
+    Gauge { value: energy;      icon: "🛏️" }
+		Item { Layout.fillWidth: true }
 }
