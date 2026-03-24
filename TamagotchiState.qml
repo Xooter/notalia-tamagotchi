@@ -50,46 +50,43 @@ QtObject {
         }
     }
 
-    function feed() {
-        hunger = Math.min(100, hunger + 20)
-        petState = "eating"
-        statChanged("hunger", hunger)
-        _returnToIdleTimer.restart()
-        save()
+    function feed(v) {
+        hunger = Math.min(100, hunger + v)
+        // petState = "eating"
+        // statChanged("hunger", hunger)
+        // _returnToIdleTimer.restart()
+        // save()
     }
 
-    function play() {
+    function play(h,e = 15) {
         if (energy < 10) return
-        happiness   = Math.min(100, happiness + 20)
-        energy      = Math.max(0, energy - 15)
-        petState = "playing"
-        statChanged("happiness", happiness)
-        _returnToIdleTimer.restart()
-        save()
+        happiness   = Math.min(100, happiness + h)
+        // energy      = Math.max(0, energy - e)
+        // petState = "playing"
+        // statChanged("happiness", happiness)
+        // _returnToIdleTimer.restart()
+        // save()
     }
 
-    function clean() {
-        cleanliness = Math.min(100, cleanliness + 25)
-        petState = "cleaning"
-        statChanged("cleanliness", cleanliness)
-        _returnToIdleTimer.restart()
-        save()
+    function clean(c) {
+        cleanliness = Math.min(100, cleanliness + c)
+        // petState = "cleaning"
+        // statChanged("cleanliness", cleanliness)
+        // _returnToIdleTimer.restart()
+        // save()
     }
 
-    function sleep() {
+    function sleep(e) {
         if (petState === "sleeping") {
-            // Despertar
-            energy  = Math.min(100, energy + 40)
-            petState = "idle"
-        } else {
-            petState = "sleeping"
-        }
+					petState = "idle"
+				} else {
+					petState = "sleeping"
+				}
         save()
     }
 
     function decay() {
         if (petState === "sleeping") {
-            // Dormir recupera energía pero baja otras stats más lento
             energy      = Math.min(100, energy + 5)
             hunger      = Math.max(0, hunger - 1)
             happiness   = Math.max(0, happiness - 1)
@@ -108,9 +105,9 @@ QtObject {
         if (petState === "eating" || petState === "playing" ||
             petState === "cleaning" || petState === "sleeping") return
 
-        if (hunger < 20)      petState = "sad"
+        if (hunger < 20)      petState = "hunger"
         else if (cleanliness < 20) petState = "dirty"
-        else if (happiness > 80)   petState = "happy"
+        else if (happiness < 50)   petState = "sad"
         else                       petState = "idle"
     }
 

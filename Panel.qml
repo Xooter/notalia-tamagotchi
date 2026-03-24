@@ -54,20 +54,19 @@ Item {
             Layout.fillWidth: true
             height: 140
 
-            Pet {
+							Pet {
                 id: pet
                 anchors.centerIn: parent
-                petState:     Tamagotchi.TamagotchiState.petState
+							}
 
-                onFed: {
-                    Tamagotchi.TamagotchiState.feed()
-                }
-                onCleaned: {
-                    Tamagotchi.TamagotchiState.clean()
-                }
-            }
+							Row {
+								
+							Food {}
 
+							Soap{}
+						}
 					}
+
 
 				Ball {
 						x: 0

@@ -1,5 +1,6 @@
 import QtQuick
 import qs.Commons
+import "." as Tamagotchi
 
 Rectangle {
     id: root
@@ -13,12 +14,13 @@ Rectangle {
     border.color: Qt.rgba(1,0.8,0.4,0.5)
     border.width: 1
 
-    property bool _dragging: false
+		property bool _dragging: false
+		property bool wasDropped: false
 
     Drag.active:  _dragging
     Drag.keys:    ["food"]
     Drag.hotSpot.x: width  / 2
-    Drag.hotSpot.y: height / 2
+		Drag.hotSpot.y: height / 2
 
     property real _restX: x
     property real _restY: y
@@ -26,11 +28,14 @@ Rectangle {
     scale: _dragging ? 1.15 : 1.0
     Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutBack } }
 
-    Text {
-        anchors.centerIn: parent
-        text:          "🍗"
-        font.pixelSize: 22
-    }
+		Image {
+				anchors.fill: parent
+				anchors.margins: 6
+
+				source: "assets/monster.png"
+				fillMode: Image.PreserveAspectFit
+				smooth: false
+			}
 
     Rectangle {
         anchors.centerIn: parent
@@ -41,31 +46,35 @@ Rectangle {
         border.color: Qt.rgba(1,0.6,0.2,0.3)
         border.width: root._dragging ? 2 : 0
         z: -1
-        Behavior on border.width { NumberAnimation { duration: 120 } }
-    }
+				Behavior on border.width { NumberAnimation { duration: 120 } }
+			}
+
 
     MouseArea {
         anchors.fill: parent
         drag.target:  root
         drag.axis:    Drag.XAndYAxis
 
-        onPressed: {
+				onPressed: {
+						root.Drag.active = true
             root._dragging = true
             root._restX = root.x
             root._restY = root.y
         }
 
-        onReleased: {
-            root._dragging = false
-            if (root.Drag.drop() !== Qt.IgnoreAction) {
-                // Drop exitoso: animar desaparición
-                disappearAnim.start()
-            } else {
-                // Volver a la posición original
-                root.x = root._restX
-                root.y = root._restY
-            }
-        }
+				onReleased: {
+						root._dragging = false
+						root.Drag.drop()
+
+						if (root.wasDropped) {
+								disappearAnim.start()
+						} else {
+								root.x = root._restX
+								root.y = root._restY
+						}
+
+						root.wasDropped = false
+				}
     }
 
     SequentialAnimation {
