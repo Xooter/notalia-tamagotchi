@@ -173,8 +173,6 @@ Item {
             anchors.fill: parent
             color: "transparent"
 						radius: parent.width / 2
-            border.color: Qt.rgba(1, 0.8, 0, 0.6)
-						border.width: 2
             opacity: 1
             Behavior on opacity { NumberAnimation { duration: 150 } }
         }
@@ -204,8 +202,6 @@ Item {
 						anchors.fill: parent
 						radius: parent.width / 2
 						color: "transparent"
-						border.color: Qt.rgba(0.2, 0.7, 1.0, 0.6)
-						border.width: 2
 						opacity: 1
 						Behavior on opacity { NumberAnimation { duration: 150 } }
 				}

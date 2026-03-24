@@ -50,25 +50,6 @@ Item {
 				anchors.margins: 8
 				spacing: 8
 
-        Item {
-            Layout.fillWidth: true
-            height: 140
-
-							Pet {
-                id: pet
-                anchors.centerIn: parent
-							}
-
-							Row {
-								
-							Food {}
-
-							Soap{}
-						}
-				}
-
-				Ball {}
-
         StatBars {
             Layout.fillWidth: true
             hunger:      Tamagotchi.TamagotchiState.hunger
@@ -77,9 +58,27 @@ Item {
             energy:      Tamagotchi.TamagotchiState.energy
 				}
 
-        DebugButtons {
-            Layout.alignment: Qt.AlignHCenter
-        }
+        Item {
+            Layout.fillWidth: true
+            height: 140
+
+						Pet {
+							id: pet
+							anchors.centerIn: parent
+						}
+
+						Row {
+							Food {}
+							Soap{}
+						}
+				}
+
+				Ball {}
+
+
+        // DebugButtons {
+        //     Layout.alignment: Qt.AlignHCenter
+        // }
 
         // ActionButtons {
         //     Layout.alignment: Qt.AlignHCenter

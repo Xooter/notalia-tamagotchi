@@ -1,6 +1,3 @@
-// StatBars.qml
-// Barras de stats con animación y color dinámico según nivel.
-
 import QtQuick
 import QtQuick.Layouts
 import qs.Commons
@@ -8,35 +5,33 @@ import qs.Commons
 Column {
     id: root
     spacing: 8
-    width: parent.width
+		width: parent.width
 
-    // El llamador pasa las stats explícitamente para evitar
-    // problemas de resolución del singleton desde subdirectorios.
     property int hunger:      100
     property int happiness:   100
     property int cleanliness: 100
     property int energy:      100
 
-    // ── Barra reutilizable ────────────────────────────────────────
     component StatBar: Item {
         id: barRoot
 
         property string label:    "Stat"
-        property int    value:    100     // 0-100
+        property int    value:    100     
         property string icon:     "●"
-        // Color baja (rojo) → medio (amarillo) → alta (verde)
         readonly property color barColor: {
-            if (value < 25)      return "#E24B4A"   // c-red-400
-            else if (value < 50) return "#EF9F27"   // c-amber-400
-            else                 return "#1D9E75"    // c-teal-400
+            if (value < 25)      return "#E24B4A"   
+            else if (value < 50) return "#EF9F27"   
+            else                 return "#1D9E75"   
         }
 
         width:  parent.width
-        height: 28
+				height: 28
+				anchors.horizontalCenter: parent.horizontalCenter
 
         Row {
             anchors.fill: parent
-            spacing: 8
+						spacing: 8
+
 
             Text {
                 text:           barRoot.icon
@@ -46,15 +41,6 @@ Column {
                 width: 18
             }
 
-            Text {
-                text:           barRoot.label
-                font.pixelSize: 11
-                color:          Style.colorOnSurfaceVariant ?? "#aaaaaa"
-                width:          56
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            // Track de la barra
             Rectangle {
                 width:               parent.width - 18 - 56 - 8*2 - 32
                 height:              8
@@ -78,7 +64,6 @@ Column {
                 }
             }
 
-            // Número
             Text {
                 text:           barRoot.value + "%"
                 font.pixelSize: 11
@@ -94,31 +79,26 @@ Column {
         }
     }
 
-    // ── Instancias ────────────────────────────────────────────────
     StatBar {
-        label: "Hambre"
         icon:  "🍗"
         value: root.hunger
         width: parent.width
     }
 
     StatBar {
-        label: "Felicidad"
-        icon:  "💛"
+        icon:  "😃"
         value: root.happiness
         width: parent.width
     }
 
     StatBar {
-        label: "Limpieza"
         icon:  "🧼"
         value: root.cleanliness
         width: parent.width
     }
 
     StatBar {
-        label: "Energía"
-        icon:  "⚡"
+        icon:  "🛏️"
         value: root.energy
         width: parent.width
     }
