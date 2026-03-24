@@ -1,7 +1,3 @@
-// Pet.qml
-// Sprite del pet con DropArea para comida y jabón.
-// Usa AnimationController para manejar el spritesheet.
-
 import QtQuick
 import qs.Commons
 import "./components"

@@ -1,8 +1,3 @@
-
-// ActionButtons.qml
-// Botones de acción: Alimentar, Jugar, Limpiar, Dormir.
-// Alimentar también se puede hacer via drag & drop en Pet.qml.
-
 import QtQuick
 import QtQuick.Layouts
 import qs.Commons
@@ -11,15 +6,13 @@ Row {
     id: root
     spacing: 10
 
-    // El llamador enlaza estas propiedades al singleton directamente.
     property string petState: "idle"
-    property int    energy:   100
-    // Callback para ejecutar acciones en el State (se asigna desde Panel).
+		property int    energy:   100
+
     property var    onAction: function(action) {}
 
     signal actionTriggered(string action)
 
-    // ── Botón reutilizable ────────────────────────────────────────
     component ActionBtn: Rectangle {
         id: btn
 
@@ -47,7 +40,6 @@ Row {
         Behavior on color   { ColorAnimation  { duration: 120 } }
         Behavior on opacity { NumberAnimation { duration: 200 } }
 
-        // Rebote al presionar
         scale: _pressed ? 0.92 : 1.0
         Behavior on scale { NumberAnimation { duration: 100; easing.type: Easing.OutBack } }
 
@@ -90,7 +82,6 @@ Row {
         root.onAction(action)
     }
 
-    // ── Instancias ────────────────────────────────────────────────
     ActionBtn {
         icon:    "🍗"
         label:   "Comer"

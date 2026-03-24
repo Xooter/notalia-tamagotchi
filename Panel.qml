@@ -10,7 +10,9 @@ Item {
 
     property var pluginApi: null
 
-    anchors.fill: parent
+		property real contentPreferredWidth: 600 * Style.uiScaleRatio
+		property real contentPreferredHeight: 400 * Style.uiScaleRatio
+  
 
     Component.onCompleted: {
         if (pluginApi) {
@@ -24,7 +26,6 @@ Item {
     SoundEffect { id: soundClean;   source: "sounds/eat.wav"    }
     SoundEffect { id: soundSleep;   source: "sounds/eat.wav"    }
 
-    // ── Conexión de señales del State ──────────────────────────────
     Connections {
         target: Tamagotchi.TamagotchiState
 
@@ -37,7 +38,6 @@ Item {
         }
     }
 
-    // ── Timer del game loop ───────────────────────────────────────
     Timer {
         interval: 8000   // cada 8s
         running:  true
@@ -45,15 +45,14 @@ Item {
         onTriggered: Tamagotchi.TamagotchiState.decay()
     }
 
-    // ── Layout principal ──────────────────────────────────────────
     ColumnLayout {
         anchors.fill:    parent
-        anchors.margins: 20
-        spacing:         16
+				anchors.margins: 8
+				spacing: 8
 
         Item {
             Layout.fillWidth: true
-            height: 240
+            height: 140
 
             Pet {
                 id: pet
@@ -68,17 +67,20 @@ Item {
                 }
             }
 
-        }
+					}
+				Ball {
+						x: 0
+						y: 0
+				}
 
-        StatBars {
-            Layout.fillWidth: true
-            hunger:      Tamagotchi.TamagotchiState.hunger
-            happiness:   Tamagotchi.TamagotchiState.happiness
-            cleanliness: Tamagotchi.TamagotchiState.cleanliness
-            energy:      Tamagotchi.TamagotchiState.energy
-        }
+        // StatBars {
+        //     Layout.fillWidth: true
+        //     hunger:      Tamagotchi.TamagotchiState.hunger
+        //     happiness:   Tamagotchi.TamagotchiState.happiness
+        //     cleanliness: Tamagotchi.TamagotchiState.cleanliness
+        //     energy:      Tamagotchi.TamagotchiState.energy
+        // }
 
-        // Botones de acción
         ActionButtons {
             Layout.alignment: Qt.AlignHCenter
             petState: Tamagotchi.TamagotchiState.petState

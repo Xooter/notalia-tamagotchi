@@ -1,8 +1,19 @@
 pragma Singleton
 import QtQuick
 
-// Singleton global del estado del Tamagotchi.
-// Se persiste en pluginApi.settings cada vez que cambia un valor.
+
+// Enojado = felicidad
+// Cansado = sue;o
+// Limpio = limpieza
+//
+//
+// Idle
+// Triste = falta de juego
+// Enojodo = falta de comida y cansancio
+// Cansado = cansancio
+// Hambre = falta de comida
+// Durmiendo 
+
 QtObject {
     id: root
 
@@ -11,8 +22,7 @@ QtObject {
     property int cleanliness: 100
     property int energy:      100
 
-    // ── Estado visible del pet ──────────────────────────────────────
-    // Valores: "idle" | "eating" | "playing" | "cleaning" | "sleeping"
+    // "idle" | "eating" | "playing" | "cleaning" | "sleeping"
     //           | "happy" | "sad" | "dirty" 
     property string petState: "idle"
 
@@ -77,7 +87,6 @@ QtObject {
         save()
     }
 
-    // ── Decay periódico (llamado por Timer en Panel) ───────────────
     function decay() {
         if (petState === "sleeping") {
             // Dormir recupera energía pero baja otras stats más lento
@@ -95,7 +104,6 @@ QtObject {
         save()
     }
 
-    // ── Lógica interna ────────────────────────────────────────────
     function _updatePetState() {
         if (petState === "eating" || petState === "playing" ||
             petState === "cleaning" || petState === "sleeping") return
@@ -107,7 +115,6 @@ QtObject {
     }
 
 
-    // Timer para volver a idle después de una acción
     property Timer _returnToIdleTimer: Timer {
         interval: 2000
         repeat:   false

@@ -22,7 +22,6 @@ Item {
         }
     }
 
-    // ── Stat más crítico para mostrar en la barra ─────────────────
     readonly property int _minStat: Math.min(
         Tamagotchi.TamagotchiState.hunger,
         Tamagotchi.TamagotchiState.happiness,
@@ -102,7 +101,7 @@ Item {
         anchors.fill: parent
         onClicked: {
             if (pluginApi) {
-                pluginApi.openPanel(root.screen, root)
+								pluginApi.openPanel(root.screen, root, { width: 260, height: 180 })
             }
         }
     }

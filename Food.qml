@@ -20,11 +20,9 @@ Rectangle {
     Drag.hotSpot.x: width  / 2
     Drag.hotSpot.y: height / 2
 
-    // Guardamos la posición de reposo para volver si no hubo drop
     property real _restX: x
     property real _restY: y
 
-    // Escala al arrastrar
     scale: _dragging ? 1.15 : 1.0
     Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutBack } }
 
@@ -34,7 +32,6 @@ Rectangle {
         font.pixelSize: 22
     }
 
-    // Sombra sutil al arrastrar
     Rectangle {
         anchors.centerIn: parent
         width:   parent.width  + 6
@@ -71,7 +68,6 @@ Rectangle {
         }
     }
 
-    // Animación al ser consumido
     SequentialAnimation {
         id: disappearAnim
         ParallelAnimation {
