@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import qs.Commons
 import qs.Widgets
+import QtQuick.Layouts
 import "." as Tamagotchi
 
 Item {
@@ -77,15 +78,17 @@ Item {
             NumberAnimation { to: 0; duration: 500 }
         }
 
-        Row {
+        RowLayout {
             id: content
             anchors.centerIn: parent
-            spacing: 5
+						spacing: 5
+						anchors.verticalCenter: parent.verticalCenter
 
             Text {
                 text:           root._petEmoji
                 font.pixelSize: 13
-                color:          Color.mOnSurface
+								color:          Color.mOnSurface
+								Layout.alignment: Qt.AlignVCenter
             }
 
             Text {
@@ -93,12 +96,14 @@ Item {
                 font.pixelSize: 11
                 visible:        root._minStat < 60
                 color:          root._alertColor
+								Layout.alignment: Qt.AlignVCenter
             }
 
             Text {
                 text:           root._minStat + "%"
                 font.pixelSize: 11
                 color:          root._alertColor
+								Layout.alignment: Qt.AlignVCenter
 
                 Behavior on color { ColorAnimation { duration: 300 } }
             }

@@ -18,7 +18,7 @@ Rectangle {
 		property real rotationAngle: 0
 
 		property bool canTriggerPlay: true
-		property real speedThreshold: 20
+		property real speedThreshold: 15
 
 		Text{
 			text: "⚽"
