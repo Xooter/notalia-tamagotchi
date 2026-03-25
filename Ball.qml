@@ -53,7 +53,9 @@ Rectangle {
 
 						if (speed > root.speedThreshold && root.canTriggerPlay) {
 								root.canTriggerPlay = false
-								Tamagotchi.TamagotchiState.play(18)
+								if (Tamagotchi.TamagotchiState.petState !== "sleeping"){
+									Tamagotchi.TamagotchiState.play(18)
+								}
 								playCooldown.start()
 						}
 
