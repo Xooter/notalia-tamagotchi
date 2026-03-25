@@ -49,7 +49,7 @@ Rectangle {
 						root.x += root.vx * root.forceMultiplier
 						root.y += root.vy * root.forceMultiplier
 
-						var speed = Math.sqrt(root.vx * root.vx + root.vy * root.vy) * root.forceMultiplier
+						var speed = Math.sqrt(root.vx * root.vx + root.vy * root.vy)
 
 						if (speed > root.speedThreshold && root.canTriggerPlay) {
 								root.canTriggerPlay = false
