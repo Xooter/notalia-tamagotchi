@@ -87,6 +87,6 @@ Row {
     ActionBtn {
         icon:   Tamagotchi.TamagotchiState.petState === "sleeping" ? "☀️" : "💤"
         label:  "-10 Dormir"
-        action: function() { Tamagotchi.TamagotchiState.sleep(-10) }
+        action: function() { Tamagotchi.TamagotchiState.energy += -10 }
     }
 }
