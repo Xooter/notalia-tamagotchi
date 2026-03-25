@@ -10,9 +10,10 @@ Rectangle {
     color: "transparent"
     property real vx: 3
     property real vy: 0
-    property real gravity: 0.9
+    property real gravity: 0.7
     property real bounce: 0.9
 		property real friction: 0.98
+		property real forceMultiplier: 1.8
 
 		property real rotationAngle: 0
 
@@ -45,14 +46,14 @@ Rectangle {
 						if (!root.parent) return
 
 						root.vy += root.gravity
-						root.x += root.vx
-						root.y += root.vy
+						root.x += root.vx * root.forceMultiplier
+						root.y += root.vy * root.forceMultiplier
 
 						var speed = Math.sqrt(root.vx * root.vx + root.vy * root.vy)
 
 						if (speed > root.speedThreshold && root.canTriggerPlay) {
 								root.canTriggerPlay = false
-								Tamagotchi.TamagotchiState.play(10)
+								Tamagotchi.TamagotchiState.play(18)
 								playCooldown.start()
 						}
 
