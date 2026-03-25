@@ -38,13 +38,6 @@ Item {
         }
     }
 
-    Timer {
-        interval: 1000
-        running:  true
-        repeat:   true
-        onTriggered: Tamagotchi.TamagotchiState.decay()
-    }
-
 		ColumnLayout {
         anchors.fill:    parent
 				anchors.margins: 8

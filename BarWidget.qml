@@ -50,6 +50,14 @@ Item {
         if (_minStat < 20) return "#E24B4A"
         if (_minStat < 40) return "#EF9F27"
         return Color.mOnSurface
+			}
+
+
+    Timer {
+        interval: 1000
+        running:  true
+        repeat:   true
+        onTriggered: Tamagotchi.TamagotchiState.decay()
     }
 
     Rectangle {
