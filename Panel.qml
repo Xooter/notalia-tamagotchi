@@ -10,7 +10,7 @@ Item {
 
     property var pluginApi: null
 
-		property real contentPreferredWidth: 600 * Style.uiScaleRatio
+		property real contentPreferredWidth: 400 * Style.uiScaleRatio
 		property real contentPreferredHeight: 430 * Style.uiScaleRatio
   
 
@@ -74,8 +74,8 @@ Item {
 						Layout.alignment: Qt.AlignHCenter
 				}
 
-        // DebugButtons {
-        //     Layout.alignment: Qt.AlignHCenter
-        // }
+        DebugButtons {
+            Layout.alignment: Qt.AlignHCenter
+        }
     }
 }

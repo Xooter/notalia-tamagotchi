@@ -24,7 +24,8 @@ QtObject {
 
     // "idle" | "eating" | "playing" | "cleaning" | "sleeping"
     //           | "happy" | "sad" | "dirty" 
-    property string petState: "idle"
+		property string petState: "idle"
+		property string lastPetState: "idle"
 
     property var pluginApi: null
 
@@ -52,34 +53,26 @@ QtObject {
 
     function feed(v) {
         hunger = Math.min(100, hunger + v)
-        // petState = "eating"
-        // statChanged("hunger", hunger)
-        // _returnToIdleTimer.restart()
-        // save()
+				save()
     }
 
     function play(h,e = 15) {
         if (energy < 10) return
         happiness   = Math.min(100, happiness + h)
-        // energy      = Math.max(0, energy - e)
-        // petState = "playing"
-        // statChanged("happiness", happiness)
-        // _returnToIdleTimer.restart()
-        // save()
+        energy      = Math.max(0, energy - e)
+				save()
     }
 
     function clean(c) {
         cleanliness = Math.min(100, cleanliness + c)
-        // petState = "cleaning"
-        // statChanged("cleanliness", cleanliness)
-        // _returnToIdleTimer.restart()
-        // save()
+        save()
     }
 
     function sleep(e) {
         if (petState === "sleeping") {
-					petState = "idle"
+					petState = lastPetState
 				} else {
+					lastPetState = petState
 					petState = "sleeping"
 				}
         save()
@@ -101,15 +94,21 @@ QtObject {
         save()
     }
 
-    function _updatePetState() {
-        if (petState === "eating" || petState === "playing" ||
-            petState === "cleaning" || petState === "sleeping") return
+		function _updatePetState() {
+				const isSad    = happiness   < 30
+				const isTired  = energy      < 30
+				const isDirty  = cleanliness < 20
+				const isHungry = hunger      < 20
 
-        if (hunger < 20)      petState = "hunger"
-        else if (cleanliness < 20) petState = "dirty"
-        else if (happiness < 50)   petState = "sad"
-        else                       petState = "idle"
-    }
+				if (isTired && isSad && isHungry)      petState = "angry"
+				else if (isHungry && isSad)            petState = "angry"
+				else if (isTired && isSad)             petState = "angry"
+				else if (isHungry)                     petState = "hungry"
+				else if (isDirty)                      petState = "dirty"
+				else if (isSad)                        petState = "sad"
+				else if (isTired)                      petState = "tired"
+				else                                   petState = "idle"
+		}
 
 
     property Timer _returnToIdleTimer: Timer {

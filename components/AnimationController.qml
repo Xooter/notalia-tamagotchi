@@ -12,14 +12,13 @@ Item {
 
     readonly property var _imageMap: ({
         "idle":     "../assets/sapo_idle.png",
-        "eating":   "../assets/sapo_open_mouth.png",
-        "playing":  "../assets/sapo_idle.png",
-        "cleaning": "../assets/sapo_idle.png",
-        "sleeping": "../assets/sapo_sleeping.png",
-        "happy":    "../assets/sapo_idle.png",
+				"sleeping": "../assets/sapo_sleeping.png",
+				"eating":   "../assets/sapo_open_mouth.png",
+
         "sad":      "../assets/sapo_sad.png",
         "dirty":    "../assets/sapo_tired.png",
-        "hunger":   "../assets/sapo_tired.png",
+				"hungry":   "../assets/sapo_tired.png",
+				"angry":    "../assets/sapo_angry.png"
 			})
 
 		Image {
