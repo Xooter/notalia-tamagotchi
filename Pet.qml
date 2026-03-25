@@ -2,6 +2,7 @@ import QtQuick
 import qs.Commons
 import "./components"
 import "." as Tamagotchi
+import QtMultimedia
 
 Item {
     id: root
@@ -150,21 +151,24 @@ Item {
 								}
 						}
 				}
-    }
+			}
 
+
+		SoundEffect { id: soundEat;     source: "sounds/eat.wav"    }
     DropArea {
         anchors.fill: parent
 				keys: ["food"]
 				z: 999
 
 				onDropped: (drop) => {
-						drop.acceptProposedAction()
+					drop.acceptProposedAction()
 
 						if (drop.source) {
 								drop.source.wasDropped = true
 						}
 
 						Tamagotchi.TamagotchiState.feed(10)
+						soundEat.play()
 						root.burstFood()
 				}
 
@@ -187,12 +191,10 @@ Item {
 				property bool active: containsDrag
 
 				onEntered: {
-						Tamagotchi.TamagotchiState.petState = "cleaning"
 						cleanTimer.start()
 				}
 
 				onExited: {
-						Tamagotchi.TamagotchiState.petState = "idle"
 						cleanTimer.stop()
 				}
 

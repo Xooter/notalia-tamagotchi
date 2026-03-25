@@ -1,7 +1,6 @@
 pragma Singleton
 import QtQuick
 
-
 // Enojado = felicidad
 // Cansado = sue;o
 // Limpio = limpieza
@@ -52,7 +51,7 @@ QtObject {
     }
 
     function feed(v) {
-        hunger = Math.min(100, hunger + v)
+				hunger = Math.min(100, hunger + v)
 				save()
     }
 
@@ -95,19 +94,21 @@ QtObject {
     }
 
 		function _updatePetState() {
+			if (petState === "sleeping" || petState === "eating") return
+
 				const isSad    = happiness   < 30
 				const isTired  = energy      < 30
 				const isDirty  = cleanliness < 20
 				const isHungry = hunger      < 20
 
 				if (isTired && isSad && isHungry)      petState = "angry"
-				else if (isHungry && isSad)            petState = "angry"
-				else if (isTired && isSad)             petState = "angry"
-				else if (isHungry)                     petState = "hungry"
-				else if (isDirty)                      petState = "dirty"
-				else if (isSad)                        petState = "sad"
-				else if (isTired)                      petState = "tired"
-				else                                   petState = "idle"
+				if (isHungry && isSad)            petState = "angry"
+				if (isTired && isSad)             petState = "angry"
+				if (isHungry)                     petState = "hungry"
+				if (isDirty)                      petState = "dirty"
+				if (isSad)                        petState = "sad"
+				if (isTired)                      petState = "tired"
+				// else                                   petState = "idle"
 		}
 
 

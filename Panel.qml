@@ -21,23 +21,6 @@ Item {
         }
     }
 
-    SoundEffect { id: soundEat;     source: "sounds/eat.wav"    }
-    SoundEffect { id: soundPlay;    source: "sounds/eat.wav"    }
-    SoundEffect { id: soundClean;   source: "sounds/eat.wav"    }
-    SoundEffect { id: soundSleep;   source: "sounds/eat.wav"    }
-
-    Connections {
-        target: Tamagotchi.TamagotchiState
-
-        function onPetStateChanged() {
-            var s = Tamagotchi.TamagotchiState.petState
-            if      (s === "eating")   soundEat.play()
-            else if (s === "playing")  soundPlay.play()
-            else if (s === "cleaning") soundClean.play()
-            else if (s === "sleeping") soundSleep.play()
-        }
-    }
-
 		ColumnLayout {
         anchors.fill:    parent
 				anchors.margins: 8

@@ -18,6 +18,7 @@ Item {
         "sad":      "../assets/sapo_sad.png",
         "dirty":    "../assets/sapo_tired.png",
 				"hungry":   "../assets/sapo_tired.png",
+				"tired":   	"../assets/sapo_tired.png",
 				"angry":    "../assets/sapo_angry.png"
 			})
 
