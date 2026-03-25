@@ -167,6 +167,7 @@ Item {
 								drop.source.wasDropped = true
 						}
 
+						if (Tamagotchi.TamagotchiState.petState === "sleeping") return
 						Tamagotchi.TamagotchiState.feed(10)
 						soundEat.play()
 						root.burstFood()

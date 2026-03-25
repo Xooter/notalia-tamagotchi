@@ -67,6 +67,7 @@ Rectangle {
             root._restX = root.x
 						root._restY = root.y
 
+						if (Tamagotchi.TamagotchiState.petState === "sleeping") return
 						lastState = Tamagotchi.TamagotchiState.petState
 						Tamagotchi.TamagotchiState.petState = "eating"
         }
