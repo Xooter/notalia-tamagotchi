@@ -19,7 +19,17 @@ Rectangle {
 		Drag.hotSpot.y: height / 2
 
     property real _restX: x
-    property real _restY: y
+		property real _restY: y
+		property string lastState: Tamagotchi.TamagotchiState.petState
+
+    Connections {
+        target: Tamagotchi.TamagotchiState
+
+        function onPetStateChanged() {
+					var s = Tamagotchi.TamagotchiState.petState
+					if (s !== "eating"){ lastState = s }
+        }
+    }
 
 
 		Image {
@@ -55,12 +65,17 @@ Rectangle {
 						root.Drag.active = true
             root._dragging = true
             root._restX = root.x
-            root._restY = root.y
+						root._restY = root.y
+
+						lastState = Tamagotchi.TamagotchiState.petState
+						Tamagotchi.TamagotchiState.petState = "eating"
         }
 
 				onReleased: {
 						root._dragging = false
 						root.Drag.drop()
+
+						Tamagotchi.TamagotchiState.petState = lastState
 
 						if (root.wasDropped) {
 								disappearAnim.start()
