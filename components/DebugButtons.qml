@@ -75,7 +75,7 @@ Row {
     ActionBtn {
         icon:   "🎮"
         label:  "-10 Jugar"
-        action: function() { Tamagotchi.TamagotchiState.play(-10) }
+        action: function() { Tamagotchi.TamagotchiState.happiness += -10 }
     }
 
     ActionBtn {

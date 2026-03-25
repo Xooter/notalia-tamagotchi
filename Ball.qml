@@ -25,6 +25,7 @@ Rectangle {
 			font.pixelSize: root.width
 			anchors.centerIn: parent
 			rotation: root.rotationAngle
+			opacity: Tamagotchi.TamagotchiState.petState === "sleeping" ?	0 : 1
 		}
 
 		Timer {

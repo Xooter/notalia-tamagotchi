@@ -21,8 +21,6 @@ QtObject {
     property int cleanliness: 100
     property int energy:      100
 
-    // "idle" | "eating" | "playing" | "cleaning" | "sleeping"
-    //           | "happy" | "sad" | "dirty" 
 		property string petState: "idle"
 		property string lastPetState: "idle"
 
@@ -102,12 +100,12 @@ QtObject {
 				const isHungry = hunger      < 20
 
 				if (isTired && isSad && isHungry)      petState = "angry"
-				if (isHungry && isSad)            petState = "angry"
-				if (isTired && isSad)             petState = "angry"
-				if (isHungry)                     petState = "hungry"
-				if (isDirty)                      petState = "dirty"
-				if (isSad)                        petState = "sad"
-				if (isTired)                      petState = "tired"
+				else if (isHungry && isSad)            petState = "angry"
+				else if (isTired && isSad)             petState = "angry"
+				else if (isHungry)                     petState = "hungry"
+				else if (isDirty)                      petState = "dirty"
+				else if (isSad)                        petState = "sad"
+				else if (isTired)                      petState = "tired"
 				// else                                   petState = "idle"
 		}
 
