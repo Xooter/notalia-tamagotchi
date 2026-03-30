@@ -16,8 +16,8 @@ Item {
     implicitHeight: capsuleHeight
     implicitWidth:  content.implicitWidth + Style.marginM * 2
 
-    Component.onCompleted: {
-        if (pluginApi && !Tamagotchi.TamagotchiState.pluginApi) {
+		onPluginApiChanged: {
+			if (pluginApi) {
             Tamagotchi.TamagotchiState.pluginApi = pluginApi
             Tamagotchi.TamagotchiState.load()
         }
@@ -40,9 +40,10 @@ Item {
     readonly property string _petEmoji: {
         var s = Tamagotchi.TamagotchiState.petState
         var map = {
-            "idle": "🐸", "playing": "🎮",
-            "cleaning": "🛁", "sleeping": "😴", "happy": "🥰",
-            "sad": "😢", "dirty": "🤢"
+            "idle": "🐸", 
+            "sleeping": "😴",
+						"sad": "😢",
+						"dirty": "🤢"
         }
         return map[s] ?? "🐸"
     }
@@ -55,7 +56,7 @@ Item {
 
 
     Timer {
-        interval: 1000
+        interval: 60000 // 1 minuto
         running:  true
         repeat:   true
         onTriggered: Tamagotchi.TamagotchiState.decay()
