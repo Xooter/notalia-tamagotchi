@@ -44,12 +44,16 @@ Item {
 						}
 
 						RowLayout {
-								Layout.fillWidth: true
-								spacing: 15
+								anchors.left: parent.left
+								anchors.right: parent.right
 
-								Bed  {}
+								Item { Layout.fillWidth: true }  
+								Bed {}
+								Item { Layout.fillWidth: true }  
 								Food {}
+								Item { Layout.fillWidth: true }  
 								Soap {}
+								Item { Layout.fillWidth: true }  
 						}
 				}
 
@@ -57,8 +61,8 @@ Item {
 						Layout.alignment: Qt.AlignHCenter
 				}
 
-        DebugButtons {
-            Layout.alignment: Qt.AlignHCenter
-        }
+        // DebugButtons {
+        //     Layout.alignment: Qt.AlignHCenter
+        // }
     }
 }
