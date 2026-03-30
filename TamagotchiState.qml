@@ -93,6 +93,7 @@ QtObject {
 		}
 
 		function updatePetState() {
+			if (petState === "sleeping" && energy > 98) petState = lastPetState
 			if (petState === "sleeping" || eating) return
 
 				const isSad    = happiness   < 30
