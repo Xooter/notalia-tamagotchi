@@ -7,7 +7,7 @@ Rectangle {
 
     width: 64
     height: 64
-    radius: 10
+    radius: Style.radiusM
 		color: !pressed ? Color.mPrimary : Color.mSecondary
 
     property bool pressed: false
@@ -18,7 +18,7 @@ Rectangle {
 
 		Image {
 				anchors.fill: parent
-				anchors.margins: 6
+				anchors.margins: Style.spacingM
 				z: 10
 
 				Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutBack } }

@@ -6,7 +6,7 @@ Rectangle {
 
     width:  64
     height: 64
-    radius: 10
+    radius: Style.radiusM
     color:  "transparent"
 
 		property bool _dragging: false
@@ -22,7 +22,7 @@ Rectangle {
 
 		Image {
 				anchors.fill: parent
-				anchors.margins: 6
+				anchors.margins: Style.spacingM
 				z: 10
 
 				scale: _dragging ? 0.7 : 1.0

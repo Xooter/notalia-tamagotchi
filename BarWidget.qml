@@ -8,7 +8,11 @@ import "." as Tamagotchi
 Item {
     id: root
 
-    property var         pluginApi: null
+		property var pluginApi: null
+		property string widgetId: ""
+		property string section: ""
+		property int sectionWidgetIndex: -1
+		property int sectionWidgetsCount: 0
     property ShellScreen screen
 
     readonly property real capsuleHeight: Style.getCapsuleHeightForScreen(screen?.name ?? "")
@@ -89,7 +93,7 @@ Item {
         RowLayout {
             id: content
             anchors.centerIn: parent
-						spacing: 5
+						spacing: Style.spacingM
 						anchors.verticalCenter: parent.verticalCenter
 
             Text {

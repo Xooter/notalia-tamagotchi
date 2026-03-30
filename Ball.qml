@@ -6,7 +6,7 @@ Rectangle {
     id: root
     width: 40
     height: 40
-    radius: 15
+    radius: Style.radiusM
     color: "transparent"
     property real vx: 3
     property real vy: 0

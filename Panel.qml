@@ -6,18 +6,21 @@ import "." as Tamagotchi
 import "./components"
 
 Item {
-    id: root
+		id: root
+    anchors.fill: parent
 
     property var pluginApi: null
 
 		property real contentPreferredWidth: 400 * Style.uiScaleRatio
 		property real contentPreferredHeight: 430 * Style.uiScaleRatio
-  
+
+		readonly property var geometryPlaceholder: root
+		readonly property bool allowAttach: true
 
 
 		ColumnLayout {
         anchors.fill:    parent
-				anchors.margins: 8
+				anchors.margins: Style.spacingM
 				spacing:         30
 
 				StatBars {

@@ -4,7 +4,7 @@ import qs.Commons
 
 RowLayout {
     id: root
-    spacing: 8
+    spacing: Style.spacingM
 		width: parent.width
 
 

@@ -16,7 +16,7 @@ Row {
 
         width:  60
         height: 56
-        radius: 12
+        radius: Style.radiusM
         color: {
             if (!enabled) return Qt.rgba(1,1,1,0.04)
             if (_pressed) return Qt.rgba(1,1,1,0.22)
@@ -24,7 +24,7 @@ Row {
             return Qt.rgba(1,1,1,0.09)
         }
         border.color: Qt.rgba(1,1,1, enabled ? 0.12 : 0.05)
-        border.width: 1
+        border.width: Style.spacingM
         opacity: enabled ? 1.0 : 0.4
 
         property bool _hovered: false
