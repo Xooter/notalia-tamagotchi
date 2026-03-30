@@ -28,7 +28,7 @@ Rectangle {
 				scale: _dragging ? 0.7 : 1.0
 				Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutBack } }
 
-				source: "assets/monster.png"
+				source: "assets/soap.png"
 				fillMode: Image.PreserveAspectFit
 				smooth: false
 			}

@@ -8,7 +8,7 @@ Rectangle {
     width: 64
     height: 64
     radius: 10
-		color: pressed ? Color.mPrimary : Color.mSecondary
+		color: !pressed ? Color.mPrimary : Color.mSecondary
 
     property bool pressed: false
 
@@ -16,12 +16,18 @@ Rectangle {
         ColorAnimation { duration: 150 }
     }
 
-    Text {
-        anchors.centerIn: parent
-        text: Tamagotchi.TamagotchiState.petState === "sleeping" ? "😴" : "a"
-        font.pixelSize: 28
-        color: Color.mSecondary
-    }
+		Image {
+				anchors.fill: parent
+				anchors.margins: 6
+				z: 10
+
+				scale: _dragging ? 0.7 : 1.0
+				Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutBack } }
+
+				source: "assets/pillow.png"
+				fillMode: Image.PreserveAspectFit
+				smooth: false
+			}
 
     MouseArea {
         anchors.fill: parent
