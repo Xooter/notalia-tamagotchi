@@ -26,8 +26,8 @@ Rectangle {
         target: Tamagotchi.TamagotchiState
 
         function onPetStateChanged() {
-					var s = Tamagotchi.TamagotchiState.petState
-					if (s !== "eating"){ lastState = s }
+					var s = Tamagotchi.TamagotchiState.eating
+					lastState = s 
         }
     }
 
@@ -68,8 +68,7 @@ Rectangle {
 						root._restY = root.y
 
 						if (Tamagotchi.TamagotchiState.petState === "sleeping") return
-						lastState = Tamagotchi.TamagotchiState.petState
-						Tamagotchi.TamagotchiState.petState = "eating"
+						Tamagotchi.TamagotchiState.eating = true
         }
 
 				onReleased: {
@@ -77,6 +76,7 @@ Rectangle {
 						root.Drag.drop()
 
 						Tamagotchi.TamagotchiState.petState = lastState
+						Tamagotchi.TamagotchiState.eating = false
 
 						if (root.wasDropped) {
 								disappearAnim.start()

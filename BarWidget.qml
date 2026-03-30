@@ -40,7 +40,7 @@ Item {
     readonly property string _petEmoji: {
         var s = Tamagotchi.TamagotchiState.petState
         var map = {
-            "idle": "🐸", "eating": "😋", "playing": "🎮",
+            "idle": "🐸", "playing": "🎮",
             "cleaning": "🛁", "sleeping": "😴", "happy": "🥰",
             "sad": "😢", "dirty": "🤢"
         }

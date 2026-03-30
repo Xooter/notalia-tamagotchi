@@ -23,6 +23,7 @@ QtObject {
 
 		property string petState: "idle"
 		property string lastPetState: "idle"
+		property bool eating: false
 
     property var pluginApi: null
 
@@ -92,7 +93,7 @@ QtObject {
     }
 
 		function _updatePetState() {
-			if (petState === "sleeping" || petState === "eating") return
+			if (petState === "sleeping" || eating) return
 
 				const isSad    = happiness   < 30
 				const isTired  = energy      < 30
@@ -106,7 +107,7 @@ QtObject {
 				else if (isDirty)                      petState = "dirty"
 				else if (isSad)                        petState = "sad"
 				else if (isTired)                      petState = "tired"
-				// else                                   petState = "idle"
+				else                                   petState = "idle"
 		}
 
 
