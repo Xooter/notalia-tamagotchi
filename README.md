@@ -36,7 +36,7 @@ No constant attention required — just check in from time to time.
 
 ## ❤️ Special Thanks
 
-BTW the frog's name is **Forgy**, created by my girlfriend, **Lu Bolatti** — thank you for bringing so much personality and charm into this little creature.
+BTW the frog's name is **Forgy**, created by my girlfriend, **Lu Bollati** — thank you for bringing so much personality and charm into this little creature.
 There’s something really special about seeing your art turn into something alive on screen.
 
 I love you deeply, and this project carries a piece of that with it.
