@@ -36,7 +36,7 @@ QtObject {
         happiness   = s.happiness   !== undefined ? s.happiness   : 100
         cleanliness = s.cleanliness !== undefined ? s.cleanliness : 100
         energy      = s.energy      !== undefined ? s.energy      : 100
-        _updatePetState()
+        updatePetState()
     }
 
 		function save() {
@@ -88,11 +88,11 @@ QtObject {
 						energy      = Math.max(0, energy - 0.4)
 				}
 
-				_updatePetState()
+				updatePetState()
 				save()
 		}
 
-		function _updatePetState() {
+		function updatePetState() {
 			if (petState === "sleeping" || eating) return
 
 				const isSad    = happiness   < 30
@@ -116,7 +116,7 @@ QtObject {
         repeat:   false
         onTriggered: {
             if (root.petState !== "sleeping") {
-                root._updatePetState()
+                root.updatePetState()
             }
         }
     }

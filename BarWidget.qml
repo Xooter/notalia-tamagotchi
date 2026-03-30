@@ -60,6 +60,13 @@ Item {
         running:  true
         repeat:   true
         onTriggered: Tamagotchi.TamagotchiState.decay()
+		}
+
+    Timer {
+        interval: 1000 
+        running:  true
+        repeat:   true
+        onTriggered: Tamagotchi.TamagotchiState.updatePetState()
     }
 
     Rectangle {

@@ -55,8 +55,8 @@ Item {
 						Layout.alignment: Qt.AlignHCenter
 				}
 
-        DebugButtons {
-            Layout.alignment: Qt.AlignHCenter
-        }
+        // DebugButtons {
+        //     Layout.alignment: Qt.AlignHCenter
+        // }
     }
 }
