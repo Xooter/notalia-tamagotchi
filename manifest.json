@@ -7,8 +7,8 @@
   "official": false,
   "license": "MIT",
   "repository": "",
-  "description": "Attack Shark status",
-  "tags": ["Bar"],
+  "description": "A lightweight taskbar Tamagotchi that lives and evolves while you use your computer.",
+  "tags": ["Bar", "Fun", "Gaming"],
   "entryPoints": {
     "barWidget": "BarWidget.qml",
     "panel": "Panel.qml"
