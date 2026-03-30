@@ -27,11 +27,11 @@ QtObject {
 
     property var pluginApi: null
 
-    signal statChanged(string stat, int value)
+		signal statChanged(string stat, int value)
 
-    function load() {
-        if (!pluginApi) return
-        var s = pluginApi.settings
+		function load() {
+			if (!pluginApi) return
+        var s = pluginApi.pluginSettings
         hunger      = s.hunger      !== undefined ? s.hunger      : 100
         happiness   = s.happiness   !== undefined ? s.happiness   : 100
         cleanliness = s.cleanliness !== undefined ? s.cleanliness : 100
@@ -39,14 +39,13 @@ QtObject {
         _updatePetState()
     }
 
-    function save() {
-        if (!pluginApi) return
-        pluginApi.settings = {
-            hunger:      hunger,
-            happiness:   happiness,
-            cleanliness: cleanliness,
-            energy:      energy,
-        }
+		function save() {
+			if (!pluginApi) return
+        pluginApi.pluginSettings.hunger      = hunger
+        pluginApi.pluginSettings.happiness   = happiness
+        pluginApi.pluginSettings.cleanliness = cleanliness
+        pluginApi.pluginSettings.energy      = energy
+        pluginApi.saveSettings()
     }
 
     function feed(v) {
@@ -76,21 +75,22 @@ QtObject {
         save()
     }
 
-    function decay() {
-        if (petState === "sleeping") {
-            energy      = Math.min(100, energy + 5)
-            hunger      = Math.max(0, hunger - 1)
-            happiness   = Math.max(0, happiness - 1)
-            cleanliness = Math.max(0, cleanliness - 1)
-        } else {
-            hunger      = Math.max(0, hunger - 2)
-            happiness   = Math.max(0, happiness - 1)
-            cleanliness = Math.max(0, cleanliness - 2)
-            energy      = Math.max(0, energy - 1)
-        }
-        _updatePetState()
-        save()
-    }
+		function decay() {
+				if (petState === "sleeping") {
+						energy      = Math.min(100, energy + 2)
+						hunger      = Math.max(0, hunger - 0.3)
+						happiness   = Math.max(0, happiness - 0.2)
+						cleanliness = Math.max(0, cleanliness - 0.2)
+				} else {
+						hunger      = Math.max(0, hunger - 0.7)
+						happiness   = Math.max(0, happiness - 0.3)
+						cleanliness = Math.max(0, cleanliness - 0.5)
+						energy      = Math.max(0, energy - 0.4)
+				}
+
+				_updatePetState()
+				save()
+		}
 
 		function _updatePetState() {
 			if (petState === "sleeping" || eating) return

@@ -14,12 +14,6 @@ Item {
 		property real contentPreferredHeight: 430 * Style.uiScaleRatio
   
 
-    Component.onCompleted: {
-        if (pluginApi) {
-            Tamagotchi.TamagotchiState.pluginApi = pluginApi
-            Tamagotchi.TamagotchiState.load()
-        }
-    }
 
 		ColumnLayout {
         anchors.fill:    parent
@@ -61,8 +55,8 @@ Item {
 						Layout.alignment: Qt.AlignHCenter
 				}
 
-        // DebugButtons {
-        //     Layout.alignment: Qt.AlignHCenter
-        // }
+        DebugButtons {
+            Layout.alignment: Qt.AlignHCenter
+        }
     }
 }

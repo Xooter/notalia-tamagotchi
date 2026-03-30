@@ -16,5 +16,12 @@
   "dependencies": {
     "plugins": []
   },
-  "metadata": {}
+  "metadata": {
+    "defaultSettings": {
+      "hunger": 100,
+      "happiness": 100,
+      "cleanliness": 100,
+      "energy": 100
+    }
+  }
 }
