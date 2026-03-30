@@ -20,17 +20,6 @@ Rectangle {
 
     property real _restX: x
 		property real _restY: y
-		property string lastState: Tamagotchi.TamagotchiState.petState
-
-    Connections {
-        target: Tamagotchi.TamagotchiState
-
-        function onPetStateChanged() {
-					var s = Tamagotchi.TamagotchiState.eating
-					lastState = s 
-        }
-    }
-
 
 		Image {
 				anchors.fill: parent
@@ -75,7 +64,6 @@ Rectangle {
 						root._dragging = false
 						root.Drag.drop()
 
-						Tamagotchi.TamagotchiState.petState = lastState
 						Tamagotchi.TamagotchiState.eating = false
 
 						if (root.wasDropped) {
