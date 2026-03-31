@@ -70,7 +70,7 @@ QtObject {
 
 		function decay() {
 				if (petState === "sleeping") {
-						energy      = Math.min(100, energy + 2)
+						energy      = Math.min(100, energy + 15)
 						hunger      = Math.max(0, hunger - 0.3)
 						happiness   = Math.max(0, happiness - 0.2)
 						cleanliness = Math.max(0, cleanliness - 0.2)
@@ -103,15 +103,4 @@ QtObject {
 				else if (isTired)                      petState = "tired"
 				else                                   petState = "idle"
 		}
-
-
-    property Timer _returnToIdleTimer: Timer {
-        interval: 2000
-        repeat:   false
-        onTriggered: {
-            if (root.petState !== "sleeping") {
-                root.updatePetState()
-            }
-        }
-    }
 }
