@@ -59,18 +59,11 @@ Item {
 
 
     Timer {
-        interval: 60000 // 1 minuto
+        interval: 6000 // 1 minuto
         running:  true
         repeat:   true
         onTriggered: Tamagotchi.TamagotchiState.decay()
 		}
-
-    Timer {
-        interval: 1000 
-        running:  true
-        repeat:   true
-        onTriggered: Tamagotchi.TamagotchiState.updatePetState()
-    }
 
     Rectangle {
         anchors.centerIn: parent

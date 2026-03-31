@@ -15,6 +15,7 @@ import QtQuick
 
 QtObject {
     id: root
+		property var pluginApi: null
 
 		readonly property var cfg: pluginApi?.pluginSettings ?? ({})
 
@@ -23,14 +24,36 @@ QtObject {
     property int cleanliness: cfg.cleanliness ?? 100
     property int energy:      cfg.energy      ?? 100
 
-		property string petState: "idle"
-		property string lastPetState: "idle"
+		property bool _sleeping: false
 		property bool eating: false
+		property string lastPetState: "idle"
+		readonly property string petState: {
+				if (root._sleeping && energy > 98)
+						return lastPetState
 
-    property var pluginApi: null
+				if (root._sleeping)
+						return "sleeping"
+
+				const isSad    = happiness   < 30
+				const isTired  = energy      < 30
+				const isDirty  = cleanliness < 20
+				const isHungry = hunger      < 20
+
+				if (isSad && (isHungry || isTired))
+						return "angry"
+				else if (isHungry)
+						return "hungry"
+				else if (isDirty)
+						return "dirty"
+				else if (isSad)
+						return "sad"
+				else if (isTired)
+						return "tired"
+				else
+						return "idle"
+		}
 
 		signal statChanged(string stat, int value)
-
 
 		function save() {
 			if (!pluginApi) return
@@ -41,32 +64,32 @@ QtObject {
         pluginApi.saveSettings()
     }
 
-    function feed(v) {
-				hunger = Math.min(100, hunger + v)
-				save()
-    }
+		function sleep() {
+			if (root._sleeping) {
+				root._sleeping = false
+			} else {
+				lastPetState = petState
+				root._sleeping = true
+			}
+			save()
+		}
 
-    function play(h,e = 15) {
-        if (energy < 10) return
-        happiness   = Math.min(100, happiness + h)
-        energy      = Math.max(0, energy - e)
-				save()
-    }
+		function clean(c) {
+			cleanliness = Math.min(100, cleanliness + c)
+			save()
+		}
+		
+		function feed(v) {
+			hunger = Math.min(100, hunger + v)
+			save()
+		}
 
-    function clean(c) {
-        cleanliness = Math.min(100, cleanliness + c)
-        save()
-    }
-
-    function sleep(e) {
-        if (petState === "sleeping") {
-					petState = lastPetState
-				} else {
-					lastPetState = petState
-					petState = "sleeping"
-				}
-        save()
-    }
+		function play(h,e = 15) {
+			if (energy < 10) return
+			happiness   = Math.min(100, happiness + h)
+			energy      = Math.max(0, energy - e)
+			save()
+		}
 
 		function decay() {
 				if (petState === "sleeping") {
@@ -81,26 +104,6 @@ QtObject {
 						energy      = Math.max(0, energy - 0.4)
 				}
 
-				updatePetState()
 				save()
-		}
-
-		function updatePetState() {
-			if (petState === "sleeping" && energy > 98) petState = lastPetState
-			if (petState === "sleeping" || eating) return
-
-				const isSad    = happiness   < 30
-				const isTired  = energy      < 30
-				const isDirty  = cleanliness < 20
-				const isHungry = hunger      < 20
-
-				if (isTired && isSad && isHungry)      petState = "angry"
-				else if (isHungry && isSad)            petState = "angry"
-				else if (isTired && isSad)             petState = "angry"
-				else if (isHungry)                     petState = "hungry"
-				else if (isDirty)                      petState = "dirty"
-				else if (isSad)                        petState = "sad"
-				else if (isTired)                      petState = "tired"
-				else                                   petState = "idle"
 		}
 }
