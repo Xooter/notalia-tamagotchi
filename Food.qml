@@ -10,8 +10,8 @@ Rectangle {
     radius: Style.radiusM
     color:  "transparent"
 
-		property bool _dragging: false
-		property bool wasDropped: false
+    property bool _dragging: false
+    property bool wasDropped: false
 
     Drag.active:  _dragging
     Drag.keys:    ["food"]
