@@ -5,7 +5,7 @@ import ".." as Tamagotchi
 
 Row {
     id: root
-    spacing: Style.spacingM
+    spacing: Style.marginXS
 
     component ActionBtn: Rectangle {
         id: btn
@@ -24,7 +24,7 @@ Row {
             return Qt.rgba(1,1,1,0.09)
         }
         border.color: Qt.rgba(1,1,1, enabled ? 0.12 : 0.05)
-        border.width: Style.spacingM
+        border.width: Style.marginM
         opacity: enabled ? 1.0 : 0.4
 
         property bool _hovered: false
@@ -41,12 +41,12 @@ Row {
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text:           btn.icon
-                font.pixelSize: 20
+                font.pixelSize: Style.fontSizeM
             }
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text:           btn.label
-                font.pixelSize: 9
+                font.pixelSize: Style.fontSizeXS
                 color:          Style.colorOnSurfaceVariant ?? "#aaaaaa"
             }
         }

@@ -20,8 +20,8 @@ Item {
 
 		ColumnLayout {
         anchors.fill:    parent
-				anchors.margins: Style.spacingM
-				spacing:         30
+				anchors.margins: Style.marginXS
+				spacing:         40
 
 				StatBars {
 						Layout.fillWidth: true
@@ -58,6 +58,8 @@ Item {
 						Layout.alignment: Qt.AlignHCenter
 				}
 
+
+				// TODO: Add setting to toggle this
         // DebugButtons {
         //     Layout.alignment: Qt.AlignHCenter
         // }

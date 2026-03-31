@@ -92,19 +92,19 @@ Item {
         RowLayout {
             id: content
             anchors.centerIn: parent
-						spacing: Style.spacingM
+						spacing: Style.marginM
 						anchors.verticalCenter: parent.verticalCenter
 
             Text {
                 text:           root._petEmoji
-                font.pixelSize: 13
+                font.pixelSize: Style.fontSizeM
 								color:          Color.mOnSurface
 								Layout.alignment: Qt.AlignVCenter
             }
 
             Text {
                 text:           root._statIcon
-                font.pixelSize: 11
+                font.pixelSize: Style.fontSizeM
                 visible:        root._minStat < 60
                 color:          root._alertColor
 								Layout.alignment: Qt.AlignVCenter
@@ -112,7 +112,7 @@ Item {
 
             Text {
                 text:           root._minStat + "%"
-                font.pixelSize: 11
+                font.pixelSize: Style.fontSizeM
                 color:          root._alertColor
 								Layout.alignment: Qt.AlignVCenter
 

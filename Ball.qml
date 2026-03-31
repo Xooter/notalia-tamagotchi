@@ -1,5 +1,6 @@
 import QtQuick
 import "." as Tamagotchi
+import qs.Commons
 
 
 Rectangle {

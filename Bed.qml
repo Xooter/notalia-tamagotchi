@@ -5,7 +5,7 @@ import "." as Tamagotchi
 Rectangle {
     id: root
 
-    width: 64
+    width:  64
     height: 64
     radius: Style.radiusM
 		color: !pressed ? Color.mPrimary : Color.mSecondary
@@ -18,7 +18,7 @@ Rectangle {
 
 		Image {
 				anchors.fill: parent
-				anchors.margins: Style.spacingM
+				anchors.margins: Style.marginXS
 				z: 10
 
 				Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutBack } }

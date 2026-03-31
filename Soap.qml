@@ -22,7 +22,7 @@ Rectangle {
 
 		Image {
 				anchors.fill: parent
-				anchors.margins: Style.spacingM
+				anchors.margins: Style.marginXS
 				z: 10
 
 				scale: _dragging ? 0.7 : 1.0
