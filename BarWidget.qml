@@ -125,7 +125,7 @@ Item {
         anchors.fill: parent
         onClicked: {
             if (pluginApi) {
-								pluginApi.openPanel(root.screen, root, { width: 260, height: 180 })
+								pluginApi.openPanel(root.screen, root)
             }
         }
     }
