@@ -23,7 +23,6 @@ Item {
 		onPluginApiChanged: {
 			if (pluginApi) {
             Tamagotchi.TamagotchiState.pluginApi = pluginApi
-            Tamagotchi.TamagotchiState.load()
         }
     }
 

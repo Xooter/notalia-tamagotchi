@@ -16,10 +16,12 @@ import QtQuick
 QtObject {
     id: root
 
-    property int hunger:      100
-    property int happiness:   100
-    property int cleanliness: 100
-    property int energy:      100
+		readonly property var cfg: pluginApi?.pluginSettings ?? ({})
+
+    property int hunger:      cfg.hunger      ?? 100
+    property int happiness:   cfg.happiness   ?? 100
+    property int cleanliness: cfg.cleanliness ?? 100
+    property int energy:      cfg.energy      ?? 100
 
 		property string petState: "idle"
 		property string lastPetState: "idle"
@@ -29,15 +31,6 @@ QtObject {
 
 		signal statChanged(string stat, int value)
 
-		function load() {
-			if (!pluginApi) return
-        var s = pluginApi.pluginSettings
-        hunger      = s.hunger      !== undefined ? s.hunger      : 100
-        happiness   = s.happiness   !== undefined ? s.happiness   : 100
-        cleanliness = s.cleanliness !== undefined ? s.cleanliness : 100
-        energy      = s.energy      !== undefined ? s.energy      : 100
-        updatePetState()
-    }
 
 		function save() {
 			if (!pluginApi) return
