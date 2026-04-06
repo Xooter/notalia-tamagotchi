@@ -39,7 +39,6 @@ Item {
             "idle": "🐸", 
             "sleeping": "😴",
 						"sad": "😢",
-						"dirty": "🤢"
         }
         return map[s] ?? "🐸"
     }

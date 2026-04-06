@@ -19,6 +19,7 @@ QtObject {
 
 		property bool _sleeping: false
 		property bool eating: false
+		readonly property bool isDirty: cleanliness < 20
 		property string lastPetState: "idle"
 		readonly property string petState: {
 				if (root._sleeping && energy > 98)
@@ -29,15 +30,12 @@ QtObject {
 
 				const isSad    = happiness   < 30
 				const isTired  = energy      < 30
-				const isDirty  = cleanliness < 20
 				const isHungry = hunger      < 20
 
-				if (isSad && (isHungry || isTired))
+				if (isSad && isHungry && isTired)
 						return "angry"
 				else if (isHungry)
 						return "hungry"
-				else if (isDirty)
-						return "dirty"
 				else if (isSad)
 						return "sad"
 				else if (isTired)

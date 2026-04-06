@@ -18,13 +18,12 @@ Item {
         "sleeping": "../assets/sapo_sleeping.png",
 
         "sad":      "../assets/sapo_sad.png",
-        "dirty":    "../assets/sapo_tired.png",
-        "hungry":   "../assets/sapo_tired.png",
         "tired":    "../assets/sapo_tired.png",
+        "hungry":    "../assets/sapo_hungry.png",
         "angry":    "../assets/sapo_angry.png"
     })
 
-		readonly property var _spriteStates: ["idle","sad", "dirty", "hungry", "tired", "angry"]
+		readonly property var _spriteStates: ["idle","sad", "hungry", "tired", "angry"]
 
     Image {
         id: sprite
@@ -33,18 +32,30 @@ Item {
         width:  root.frameW
 				height: root.frameH
 
-        property string currentState: pluginApi?.mainInstance?.petState
+				property string currentState: pluginApi.mainInstance.petState
 
         source: root._imageMap[currentState] ?? "../assets/sapo_idle.png"
 
         fillMode: Image.PreserveAspectFit
         smooth: false
 
-        sourceClipRect: {
-            if (pluginApi?.mainInstance?.eating && root._spriteStates.includes(currentState)) {
+				sourceClipRect: {
+						const state = pluginApi.mainInstance
+						const DIRTY_SPRITE_COORDS = root.spriteW * 2
+						const DIRTY_EATING_SPRITE_COORDS = root.spriteW * 3
+
+						if (state.isDirty && root._spriteStates.includes(currentState)) {
+								if (state.eating && root._spriteStates.includes(currentState)) {
+										return Qt.rect(DIRTY_EATING_SPRITE_COORDS, 0, root.spriteW, root.spriteH)
+								}
+                return Qt.rect(DIRTY_SPRITE_COORDS, 0, root.spriteW, root.spriteH)
+						}
+
+            if (state.eating && root._spriteStates.includes(currentState)) {
                 return Qt.rect(root.spriteW, 0, root.spriteW, root.spriteH)
-            }
+						}
+
             return Qt.rect(0, 0, root.spriteW, root.spriteH)
         }
-    }
+			}
 }
