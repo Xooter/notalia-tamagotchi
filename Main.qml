@@ -80,7 +80,7 @@ QtObject {
 			save()
 		}
 
-		function _randFactor(min = 0.9, max = 1.1) {
+		function _randFactor(min = 0.5, max = 1.7) {
 				return min + Math.random() * (max - min)
 		}
 
@@ -93,10 +93,10 @@ QtObject {
 						happiness   = Math.max(0, happiness - 0.005 * f * _randFactor())
 						cleanliness = Math.max(0, cleanliness - 0.02 * f * _randFactor())
 				} else {
-						hunger      = Math.max(0, hunger - 0.14 * f * _randFactor())
-						happiness   = Math.max(0, happiness - 0.01 * f * _randFactor())
-						cleanliness = Math.max(0, cleanliness - 0.08 * f * _randFactor(0.8, 1.3))
-						energy      = Math.max(0, energy - 0.06 * f * _randFactor())
+						energy      = Math.max(0, energy - 0.03 * f * _randFactor())
+						hunger      = Math.max(0, hunger - 0.05 * f * _randFactor())
+						happiness   = Math.max(0, happiness - 0.005 * f * _randFactor())
+						cleanliness = Math.max(0, cleanliness - 0.05 * f * _randFactor())
 				}
 
 				save()
