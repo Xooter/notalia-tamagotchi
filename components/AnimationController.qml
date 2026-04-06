@@ -58,4 +58,19 @@ Item {
             return Qt.rect(0, 0, root.spriteW, root.spriteH)
         }
 			}
+
+			Image {
+					anchors.centerIn: parent
+
+					width: root.frameW
+					height: root.frameH
+
+					source: "../assets/flies.png"
+					fillMode: Image.PreserveAspectFit
+					smooth: false
+
+					visible: pluginApi.mainInstance.isDirty && pluginApi.mainInstance.petState != "angry" && root._spriteStates.includes(pluginApi.mainInstance.petState)
+
+					z: 1
+			}
 }
