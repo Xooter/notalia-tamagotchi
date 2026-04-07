@@ -12,13 +12,13 @@ Rectangle {
     property real vy: 0
     property real gravity: 0.7
     property real bounce: 0.9
-		property real friction: 0.98
-		property real forceMultiplier: 1.8
-
-		property real rotationAngle: 0
-
-		property bool canTriggerPlay: true
-		property real speedThreshold: 15
+    property real friction: 0.98
+    property real forceMultiplier: 1.8
+    
+    property real rotationAngle: 0
+    
+    property bool canTriggerPlay: true
+    property real speedThreshold: 15
 
     Image {
         id: sprite
@@ -31,19 +31,19 @@ Rectangle {
 
         fillMode: Image.PreserveAspectFit
         smooth: false
-				opacity: pluginApi?.mainInstance?.petState === "sleeping" ?	0 : 1
-				rotation: root.rotationAngle
-			}
-
-		Timer {
-				id: playCooldown
-				interval: 500   
-				repeat: false
-
-				onTriggered: {
-						root.canTriggerPlay = true
-				}
+        opacity: pluginApi?.mainInstance?.petState === "sleeping" ?	0 : 1
+        rotation: root.rotationAngle
 		}
+
+    Timer {
+        id: playCooldown
+        interval: 500   
+        repeat: false
+
+        onTriggered: {
+            root.canTriggerPlay = true
+        }
+    }
 
     Timer {
         id: physicsTimer

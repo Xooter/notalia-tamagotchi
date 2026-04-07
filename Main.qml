@@ -2,9 +2,9 @@ import QtQuick
 
 QtObject {
     id: root
-		property var pluginApi: null
-
-		readonly property var cfg: pluginApi?.pluginSettings ?? ({})
+    property var pluginApi: null
+    
+    readonly property var cfg: pluginApi?.pluginSettings ?? ({})
 
     property int hunger:      cfg.hunger      ?? 100
     property int happiness:   cfg.happiness   ?? 100
@@ -100,5 +100,12 @@ QtObject {
 				}
 
 				save()
+		}
+
+    Timer {
+        interval: 30000 // 30 segs
+        running:  true
+        repeat:   true
+        onTriggered: root.decay()
 		}
 }

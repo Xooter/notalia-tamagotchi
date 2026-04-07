@@ -50,13 +50,6 @@ Item {
 			}
 
 
-    Timer {
-        interval: 30000 // 30 segs
-        running:  true
-        repeat:   true
-        onTriggered: pluginApi?.mainInstance?.decay()
-		}
-
     Rectangle {
         anchors.centerIn: parent
         height: capsuleHeight

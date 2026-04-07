@@ -1,64 +1,83 @@
+import "./components"
+import QtMultimedia
 import QtQuick
 import QtQuick.Layouts
-import QtMultimedia
 import qs.Commons
-import "./components"
 
 Item {
-		id: root
+    id: root
+
+    property var pluginApi: null
+    property real contentPreferredWidth: 400 * Style.uiScaleRatio
+    property real contentPreferredHeight: 430 * Style.uiScaleRatio
+    readonly property var geometryPlaceholder: root
+    readonly property bool allowAttach: true
+
     anchors.fill: parent
 
-		property var pluginApi: null
+    ColumnLayout {
+        anchors.fill: parent
+        anchors.margins: Style.marginXS
+        spacing: 40
 
-		property real contentPreferredWidth: 400 * Style.uiScaleRatio
-		property real contentPreferredHeight: 430 * Style.uiScaleRatio
+        StatBars {
+            Layout.fillWidth: true
+            pluginApi: root.pluginApi
+        }
 
-		readonly property var geometryPlaceholder: root
-		readonly property bool allowAttach: true
+        Item {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 350
 
+            Pet {
+                pluginApi: root.pluginApi
+                anchors.centerIn: parent
+            }
 
-		ColumnLayout {
-        anchors.fill:    parent
-				anchors.margins: Style.marginXS
-				spacing:         40
+            RowLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
 
-				StatBars {
-						Layout.fillWidth: true
-						pluginApi: root.pluginApi
-				}
+                Item {
+                    Layout.fillWidth: true
+                }
 
+                Bed {
+                    pluginApi: root.pluginApi
+                }
 
-				Item {
-						Layout.fillWidth: true
-						Layout.preferredHeight: 350   
+                Item {
+                    Layout.fillWidth: true
+                }
 
-						Pet {
-								pluginApi: root.pluginApi
-								anchors.centerIn: parent
-						}
+                Food {
+                    pluginApi: root.pluginApi
+                }
 
-						RowLayout {
-								anchors.left: parent.left
-								anchors.right: parent.right
+                Item {
+                    Layout.fillWidth: true
+                }
 
-								Item 	{ Layout.fillWidth: true }  
-								Bed 	{ pluginApi: root.pluginApi }
-								Item 	{ Layout.fillWidth: true }  
-								Food 	{ pluginApi: root.pluginApi }
-								Item 	{ Layout.fillWidth: true }  
-								Soap 	{ }
-								Item	{ Layout.fillWidth: true }  
-						}
-				}
+                Soap {
+                }
 
-				Ball {
-						Layout.alignment: Qt.AlignHCenter
-				}
+                Item {
+                    Layout.fillWidth: true
+                }
 
+            }
 
-				DebugButtons {
+        }
+
+        Ball {
+            Layout.alignment: Qt.AlignHCenter
+        }
+
+        DebugButtons {
             pluginApi: root.pluginApi
             Layout.alignment: Qt.AlignHCenter
         }
+
     }
+
 }
