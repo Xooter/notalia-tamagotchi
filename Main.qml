@@ -74,7 +74,7 @@ Item {
         save();
     }
 
-    function play(h, e = 15) {
+    function play(h, e = 3) {
         if (energy < 10 || happiness >= 99)
             return;
         happiness = Math.min(100, happiness + h);
