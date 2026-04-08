@@ -18,7 +18,7 @@ Item {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Style.marginXS
-        spacing: 40
+        spacing: Style.marginXL
 
         StatBars {
             Layout.fillWidth: true
